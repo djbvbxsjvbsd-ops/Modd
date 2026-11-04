@@ -12,23 +12,21 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Descompactar
-        run: Expand-Archive -Path valdoria-saga-do-enzo_1.zip -DestinationPath projeto
+        run: 7z x valdoria-saga-do-enzo_1.zip -oprojeto
 
       - uses: actions/setup-node@v4
         with:
           node-version: 18
 
       - name: Instalar dependências
-        run: |
-          cd projeto/mc-injector
-          npm install
+        run: cd projeto\mc-injector && npm install
+        shell: cmd
 
       - name: Build EXE
-        run: |
-          cd projeto/mc-injector
-          npm run dist
+        run: cd projeto\mc-injector && npm run dist
+        shell: cmd
 
       - uses: actions/upload-artifact@v4
         with:
           name: ValdoriaInjector-Setup
-          path: projeto/mc-injector/dist/*.exe
+          path: projeto\mc-injector\dist\*.exe
